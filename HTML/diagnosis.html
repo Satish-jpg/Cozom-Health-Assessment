@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/diagnosis.css">
+    <title>Cozom - Symptom Diagnosis</title>
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="/info" class="nav-link">INFO</a></li>
+            <li class="nav-item"><a href="/symptoms" class="nav-link">SYMPTOMS</a></li>
+            <li class="nav-item"><a href="/questions" class="nav-link">QUESTIONS</a></li>
+            <li class="nav-item"><a href="/conditions" class="nav-link">CONDITIONS</a></li>
+            <li class="nav-item"><a href="/details" class="nav-link">DETAILS</a></li>
+            <li class="nav-item"><a href="/treatment" class="nav-link">TREATMENT</a></li>
+        </ul>
+    </nav>
+    <div class="content">
+        <h1>Symptom Diagnosis</h1>
+        <div class="selection-group">
+            <label for="bodyPartCombo">Select Body Part:</label>
+            <select id="bodyPartCombo"></select>
+        </div>
+        <div class="selection-group">
+            <label for="symptomCombo">Select Symptom:</label>
+            <select id="symptomCombo"></select>
+            <button id="addSymptomButton">Add Selected Symptom</button>
+        </div>
+        <div class="results">
+            <h2>Diagnosis Results</h2>
+            <ul id="conditionList"></ul>
+        </div>
+    </div>
+    <script src="js/diagnosis.js"></script>
+</body>
+</html>

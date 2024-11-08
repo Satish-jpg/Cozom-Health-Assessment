@@ -1,0 +1,19 @@
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Vaginal odor",
+                "id": 410
+            }
+        ],
+        "bodypart": {
+            "name": "Genitals",
+            "id": 35
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+}

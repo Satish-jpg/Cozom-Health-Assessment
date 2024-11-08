@@ -1,0 +1,4 @@
+const img = document.createElement('img');
+img.src = 'assets/your-image.jpg';
+img.alt = 'विवरणात्मक पाठ';
+document.body.appendChild(img);

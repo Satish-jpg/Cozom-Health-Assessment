@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/bodymap.css">
+    <title>Cozom - Interactive Body Map</title>
+</head>
+<body>
+    <h1>Select Body Part</h1>
+    <div class="body-map-container">
+        <!-- Male Front View -->
+        <img src="assets/front-m.webp" alt="Male Front View" usemap="#maleBodyMap" class="body-image">
+
+        <map name="maleBodyMap">
+            <area shape="rect" coords="50,50,150,150" alt="Head" data-part="Head">
+            <area shape="rect" coords="60,200,160,350" alt="Chest" data-part="Chest">
+            <!-- Additional body parts defined with coordinates -->
+        </map>
+    </div>
+
+    <div id="selectedPart">Click on a body part to see details</div>
+
+    <script src="js/bodymap.js"></script>
+</body>
+</html>
