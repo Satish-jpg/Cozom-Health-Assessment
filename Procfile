@@ -1,2 +1,3 @@
-web: python DiseaseDatabase-master/__main__.py
+web: python DiseaseDatabaseMaster/cozom_web_based_app.py
+
 
