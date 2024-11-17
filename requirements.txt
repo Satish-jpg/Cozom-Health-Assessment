@@ -35,7 +35,7 @@ optree==0.13.1
 packaging==24.2
 pandas==2.2.3
 pillow==11.0.0
-protobuf==5.28.3
+protobuf>=3.19.6,<3.20
 Pygments==2.18.0
 python-dateutil==2.9.0.post0
 pytz==2024.2
@@ -50,6 +50,7 @@ SQLAlchemy==2.0.36
 tensorboard==2.18.0
 tensorboard-data-server==0.7.2
 tensorflow==2.11.0
+tensorboard==2.11.0
 tensorflow-io-gcs-filesystem==0.31.0
 termcolor==2.5.0
 threadpoolctl==3.5.0
