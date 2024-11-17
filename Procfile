@@ -1,3 +1,3 @@
-web: python DiseaseDatabaseMaster/cozom_web_based_app.py
+web: gunicorn DiseaseDatabaseMaster.cozom_web_based_app:app
 
 
