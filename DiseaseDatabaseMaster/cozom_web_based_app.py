@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 import sys
 import os
 
@@ -26,6 +26,16 @@ def get_database():
         return jsonify(serialized_data)
     else:
         return "No data available", 404
+
+# Route for Symptom Checker
+@app.route('/symptom-checker')
+def symptom_checker():
+    return render_template('symptom_checker.html')
+
+# Route for Body Map
+@app.route('/body-map')
+def body_map():
+    return render_template('body_map.html')
 
 # Helper function to serialize custom objects
 def serialize(obj):
