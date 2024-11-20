@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/about.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/about.css') }}">
     <title>Cozom - About</title>
 </head>
 <body>
@@ -23,6 +23,6 @@
         <button id="agreeButton">I agree</button>
         <button id="disagreeButton">I disagree</button>
     </div>
-    <script src="js/about.js"></script>
+    <script src="{{ url_for('static', filename='js/about.js') }}"></script>
 </body>
 </html>

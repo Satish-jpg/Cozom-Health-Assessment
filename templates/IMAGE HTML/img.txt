@@ -1,1 +1,1 @@
-<img src="assets/your-image.jpg" alt="विवरणात्मक पाठ">
+<img src="static/assets/your-image.jpg" alt="विवरणात्मक पाठ">

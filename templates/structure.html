@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Checker</title>
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="static/CSS/bodymap.css">
+    <link rel="stylesheet" href="static/CSS/condition.css">
+    <link rel="stylesheet" href="static/CSS/diagnosis.css">
+    <link rel="stylesheet" href="static/CSS/symptom.css">
+    <link rel="stylesheet" href="static/CSS/others.css">
+</head>
+<body>
+    <h1>Symptom Checker</h1>
+
+    <!-- Sex Selection -->
+    <label for="sex">Select Sex:</label>
+    <select id="sex">
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+    </select>
+
+    <br><br>
+
+    <!-- Body Image Toggle -->
+    <div class="body-map" id="bodyMap">
+        <div class="toggle-direction" id="toggleDirection" onclick="toggleBodyView()">🔄</div>
+
+        <!-- Body Part Hover Areas -->
+        <div class="body-part" style="top: 20%; left: 30%;" id="head" onclick="selectPart('head')"></div>
+        <div class="body-part" style="top: 60%; left: 30%;" id="chest" onclick="selectPart('chest')"></div>
+        <!-- Add more body parts similarly -->
+    </div>
+
+    <!-- JS Files -->
+    <script src="static/js/bodymap.js"></script>
+    <script src="static/js/condition_component.js"></script>
+    <script src="static/js/diagnosepage.js"></script>
+    <script src="static/js/symptom_component.js"></script>
+    <script src="static/js/others.js"></script>
+
+    <script>
+        let isFrontView = true;
+        let sex = 'female'; // default sex
+
+        // Function to toggle between front and back body views
+        function toggleBodyView() {
+            isFrontView = !isFrontView;
+            updateBodyImage();
+        }
+
+        // Function to update the body image based on the selected sex and view (front/back)
+        function updateBodyImage() {
+            const bodyMap = document.getElementById('bodyMap');
+            const toggle = document.getElementById('toggleDirection');
+
+            if (sex === 'female') {
+                bodyMap.style.backgroundImage = isFrontView ? "url('images/female_front.png')" : "url('images/female_back.png')";
+            } else {
+                bodyMap.style.backgroundImage = isFrontView ? "url('images/male_front.png')" : "url('images/male_back.png')";
+            }
+
+            toggle.innerText = isFrontView ? "🔄" : "🔄";
+        }
+
+        // Function to handle the hover effect on body parts
+        function hoverBodyPart(part) {
+            const bodyPart = document.getElementById(part);
+            bodyPart.style.backgroundColor = 'rgba(255, 0, 0, 0.5)'; // change color on hover
+        }
+
+        // Function to reset body part color
+        function resetBodyPartColor(part) {
+            const bodyPart = document.getElementById(part);
+            bodyPart.style.backgroundColor = ''; // reset color
+        }
+
+        // Function to handle part selection (click)
+        function selectPart(part) {
+            alert('You selected ' + part);
+        }
+
+        // Event listener for hover effect
+        const bodyParts = document.querySelectorAll('.body-part');
+        bodyParts.forEach(part => {
+            part.addEventListener('mouseover', () => hoverBodyPart(part.id));
+            part.addEventListener('mouseout', () => resetBodyPartColor(part.id));
+        });
+
+        // Event listener for sex change
+        document.getElementById('sex').addEventListener('change', (e) => {
+            sex = e.target.value;
+            updateBodyImage();
+        });
+
+        // Initialize the body image on page load
+        window.onload = updateBodyImage;
+    </script>
+</body>
+</html>

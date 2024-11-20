@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/aboutpage.css">
+    <!-- Updated link for the CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/aboutpage.css') }}">
     <title>Cozom - About Page Component</title>
 </head>
 <body>
@@ -12,6 +13,7 @@
         <p>This platform aims to help users identify health issues and suggest specialized care.</p>
         <button id="moreInfoButton">More Info</button>
     </div>
-    <script src="js/aboutpage.js"></script>
+    <!-- Updated script source for JS -->
+    <script src="{{ url_for('static', filename='js/aboutpage.js') }}"></script>
 </body>
 </html>

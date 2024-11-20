@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/bodymap.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/bodymap.css') }}">
     <title>Cozom - Interactive Body Map</title>
 </head>
 <body>
     <h1>Select Body Part</h1>
     <div class="body-map-container">
         <!-- Male Front View -->
-        <img src="assets/front-m.webp" alt="Male Front View" usemap="#maleBodyMap" class="body-image">
+        <img src="{{ url_for('static', filename='assets/front-m.webp') }}" alt="Male Front View" usemap="#maleBodyMap" class="body-image">
 
         <map name="maleBodyMap">
             <area shape="rect" coords="50,50,150,150" alt="Head" data-part="Head">
@@ -21,6 +21,6 @@
 
     <div id="selectedPart">Click on a body part to see details</div>
 
-    <script src="js/bodymap.js"></script>
+    <script src="{{ url_for('static', filename='js/bodymap.js') }}"></script>
 </body>
 </html>
