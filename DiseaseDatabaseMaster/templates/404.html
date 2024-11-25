@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oops! The page you're looking for cannot be found.">
+    <title>404 - Page Not Found</title>
+    <!-- Link CSS dynamically using Flask's url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/404.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" role="banner">
+        <h1 class="error-title" role="heading" aria-level="1">404</h1>
+        <p class="error-message">We couldn't find the page you were looking for.</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="content" role="main">
+        <p class="instructions">
+            It seems the page you’re trying to reach is unavailable. Please double-check the URL or use the navigation below to find what you're looking for.
+        </p>
+        <div class="button-container">
+            <a href="{{ url_for('home') }}" class="home-button" aria-label="Go to Home Page">Home Page</a>
+            <a href="{{ url_for('info') }}" class="info-button" aria-label="Learn More About Us">Learn More</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <p>&copy; {{ current_year }} Cozom. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript Support -->
+    <noscript>
+        <p class="noscript-warning">JavaScript is disabled in your browser. Some features may not work as expected.</p>
+    </noscript>
+    
+    <!-- Link JS dynamically using Flask's url_for -->
+    <script src="{{ url_for('static', filename='js/404.js') }}"></script>
+</body>
+</html>

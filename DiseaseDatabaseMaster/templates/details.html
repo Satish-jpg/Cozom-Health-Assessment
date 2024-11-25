@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore detailed information about specific health conditions and their symptoms on Cozom.">
+    <title>Cozom - Details</title>
+    <!-- Link to CSS using Flask's url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/details.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link">HOME</a></li>
+            <li class="nav-item"><a href="{{ url_for('info') }}" class="nav-link">INFO</a></li>
+            <li class="nav-item"><a href="{{ url_for('symptom_checker') }}" class="nav-link">SYMPTOMS</a></li>
+            <li class="nav-item"><a href="{{ url_for('questions') }}" class="nav-link">QUESTIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('conditions_view') }}" class="nav-link">CONDITIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('treatment') }}" class="nav-link">TREATMENT</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="content" role="main">
+        <h1>Details</h1>
+        <p id="detailsDescription">
+            Here, you can explore detailed information about various health conditions, symptoms, and related treatments.
+        </p>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <p>&copy; {{ current_year }} Cozom. All Rights Reserved.</p>
+    </footer>
+    
+    <!-- Include JavaScript -->
+    <script src="{{ url_for('static', filename='js/details.js') }}"></script>
+</body>
+</html>

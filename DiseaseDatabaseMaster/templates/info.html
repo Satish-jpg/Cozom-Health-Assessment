@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Page - Cozom</title>
+    <!-- Include CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/info.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link">HOME</a></li>
+            <li class="nav-item"><a href="{{ url_for('info') }}" class="nav-link">INFO</a></li>
+            <li class="nav-item"><a href="{{ url_for('symptom_checker') }}" class="nav-link">SYMPTOMS</a></li>
+            <li class="nav-item"><a href="{{ url_for('questions') }}" class="nav-link">QUESTIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('conditions') }}" class="nav-link">CONDITIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('details') }}" class="nav-link">DETAILS</a></li>
+            <li class="nav-item"><a href="{{ url_for('treatment') }}" class="nav-link">TREATMENT</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="content">
+        <h1>Welcome to the Cozom Info Page</h1>
+        <p>This page provides information about Cozom, a platform designed to help users identify symptoms and find specialists.</p>
+    </main>
+</body>
+</html>

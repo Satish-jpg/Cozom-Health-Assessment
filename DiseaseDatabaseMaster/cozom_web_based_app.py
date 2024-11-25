@@ -1,128 +1,198 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, abort, url_for
 import sys
 import os
 import json
+import logging
 
-# Adding the project directory to the Python path to resolve module not found error
+# Adding the project directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from cozom.reader import readDatabase
-from cozom.models import Symptom, Condition, BodyPart  # Importing relevant classes
+from cozom.models import Symptom, Condition, BodyPart
 
+# Initialize Flask app
 app = Flask(__name__)
 
-# Initialize variables for holding the data
-data = None
+# Logging configuration
+logging.basicConfig(level=logging.INFO)
+logger = app.logger
+
+# Templates and static folder paths
+templates_path = os.path.join(os.getcwd(), "templates")
+static_folder = os.path.join(os.getcwd(), "static")
+DATA_FOLDER = r"D:\Cozom"
+
+# Required templates and static files
+required_templates = [
+    "about.html", "info.html", "questions.html",
+    "symptom_checker.html", "conditions.html",
+    "details.html", "404.html"
+]
+required_static_files = {
+    "CSS": ["about.css", "404.css", "conditions.css", "details.css"],
+    "js": ["about.js", "404.js", "conditions.js", "details.js"]
+}
+
+# Verify templates
+def verify_templates():
+    """Checks if all required templates exist."""
+    if not os.path.exists(templates_path):
+        logger.error(f"Templates folder not found: {templates_path}")
+        return False
+    missing_templates = [
+        template for template in required_templates
+        if not os.path.exists(os.path.join(templates_path, template))
+    ]
+    if missing_templates:
+        logger.error(f"Missing templates: {missing_templates}")
+        return False
+    logger.info("All templates verified.")
+    return True
+
+# Verify static files
+def verify_static_files():
+    """Checks if all required static files exist."""
+    if not os.path.exists(static_folder):
+        logger.error(f"Static folder not found: {static_folder}")
+        return False
+    missing_files = []
+    for folder, files in required_static_files.items():
+        folder_path = os.path.join(static_folder, folder)
+        for file in files:
+            if not os.path.exists(os.path.join(folder_path, file)):
+                missing_files.append(f"{folder}/{file}")
+    if missing_files:
+        logger.error(f"Missing static files: {missing_files}")
+        return False
+    logger.info("All static files verified.")
+    return True
+
+if not verify_templates() or not verify_static_files():
+    sys.exit("Application cannot start due to missing templates or static files.")
+
+# Initialize global variables for data
 body_parts = []
 symptoms = []
 conditions = []
 
-# Function to load body parts data
+logger.info(f"Using DATA_FOLDER: {DATA_FOLDER}")
+
+# Helper function to load JSON files safely
+def load_json_file(filepath):
+    """Load JSON file with error handling."""
+    try:
+        with open(filepath, 'r') as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError) as e:
+        logger.error(f"Error loading {filepath}: {e}")
+        return None
+
+# Load body parts
 def load_body_parts():
-    with open('data/body_parts.json', 'r') as f:
-        return json.load(f)
+    """Load body parts data."""
+    parts_file = os.path.join(DATA_FOLDER, 'body_parts.json')
+    parts_data = load_json_file(parts_file)
+    if parts_data:
+        return [{"id": int(k), "name": v} for k, v in parts_data.items()]
+    logger.warning("Body parts data is empty.")
+    return []
 
-# Function to load symptoms data
+# Load symptoms
 def load_symptoms():
-    symptoms_list = []
-    symptoms_folder = os.path.join('data', 'symptoms')
-    for symptom_file in os.listdir(symptoms_folder):
-        if symptom_file.endswith('.json'):
-            with open(os.path.join(symptoms_folder, symptom_file), 'r') as f:
-                symptom = json.load(f)
-                symptoms_list.append(symptom)
-    return symptoms_list
+    """Load symptoms data."""
+    symptoms_folder = os.path.join(DATA_FOLDER, 'symptoms')
+    if not os.path.exists(symptoms_folder):
+        logger.warning(f"Symptoms folder not found: {symptoms_folder}")
+        return []
+    symptoms = []
+    for file in os.listdir(symptoms_folder):
+        if file.endswith('.json'):
+            symptom_data = load_json_file(os.path.join(symptoms_folder, file))
+            if symptom_data:
+                symptoms.append(symptom_data)
+    return symptoms
 
-# Function to load conditions data
+# Load conditions
 def load_conditions():
-    conditions_list = []
-    conditions_folder = os.path.join('data', 'conditions')
-    for condition_file in os.listdir(conditions_folder):
-        if condition_file.endswith('.json'):
-            with open(os.path.join(conditions_folder, condition_file), 'r') as f:
-                condition = json.load(f)
-                conditions_list.append(condition)
-    return conditions_list
+    """Load conditions data."""
+    conditions = []
+    for folder_name in ['conditions_part1', 'conditions_part2']:
+        folder = os.path.join(DATA_FOLDER, folder_name)
+        if not os.path.exists(folder):
+            logger.warning(f"Conditions folder not found: {folder}")
+            continue
+        for file in os.listdir(folder):
+            if file.endswith('.json'):
+                condition_data = load_json_file(os.path.join(folder, file))
+                if condition_data:
+                    conditions.append(condition_data)
+    return conditions
 
-# Loading the data when the app starts
-@app.before_first_request
+# Load data before each request
+@app.before_request
 def load_data():
+    """Load data before each request."""
     global body_parts, symptoms, conditions
+    logger.info("Loading body parts, symptoms, and conditions...")
     body_parts = load_body_parts()
     symptoms = load_symptoms()
     conditions = load_conditions()
 
-# Route to display the home page
+# Routes
 @app.route('/')
 def home():
-    return render_template('about.html')  # Adjusted to render the about page initially
+    return render_template('about.html')
 
-# Route for Symptom Checker
+@app.route('/details')
+def details():
+    return render_template('details.html')
+
+@app.route('/conditions')
+def conditions_view():
+    return render_template('conditions.html')
+
+@app.route('/info')
+def info():
+    return render_template('info.html')
+
+@app.route('/questions')
+def questions():
+    return render_template('questions.html')
+
 @app.route('/symptom-checker')
 def symptom_checker():
     return render_template('symptom_checker.html', symptoms=symptoms, body_parts=body_parts)
 
-# Route for Body Map
-@app.route('/body-map')
-def body_map():
-    return render_template('BODY MAP HTML/bodymap.html', body_parts=body_parts)
+@app.route('/body-part/<int:part_id>')
+def detailed_body_part(part_id):
+    """Display details for a specific body part."""
+    part = next((item for item in body_parts if item["id"] == part_id), None)
+    if not part:
+        abort(404, description="Body part not found")
+    return render_template('bodypart.html', part=part)
 
-# Route for Diagnosis page
-@app.route('/diagnosis')
-def diagnosis():
-    return render_template('Component HTML/diagnosepage.html')  # Adjusted to the correct component
-
-# Route for the Body Part page
-@app.route('/body-part')
-def body_part():
-    return render_template('Component HTML/bodypart_component.html')  # Adjusted to the correct component
-
-# Route for Condition page
-@app.route('/condition')
-def condition():
-    return render_template('Component HTML/condition_component.html')
-
-# Route for the helpers page
 @app.route('/helpers')
 def helpers():
     return render_template('helpers.html')
 
-# Route for Structure page
 @app.route('/structure')
 def structure():
     return render_template('structure.html')
 
-# Route for Image Toggle Front Back page
 @app.route('/image-toggle')
 def image_toggle():
     return render_template('IMAGE HTML/ImageToggleFrontBack.html')
 
-# Helper function to serialize custom objects
-def serialize(obj):
-    if isinstance(obj, BodyPart):
-        return {
-            "id": obj.id,
-            "name": obj.name,
-            "symptoms": [serialize(symptom) for symptom in obj.symptoms()]
-        }
-    elif isinstance(obj, Symptom):
-        return {
-            "id": obj.id,
-            "name": obj.name,
-            "conditions": [serialize(condition) for condition in obj.conditions()]
-        }
-    elif isinstance(obj, Condition):
-        return {
-            "id": obj.id,
-            "name": obj.name,
-            "about": obj.about
-        }
-    elif hasattr(obj, "__dict__"):
-        return obj.__dict__
-    else:
-        return str(obj)
+@app.route('/component-html/aboutpage')
+def about_page_component():
+    return render_template('Component HTML/aboutpage.html')
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """Custom 404 error page."""
+    return render_template('404.html', error=e), 404
 
 if __name__ == "__main__":
-    # Loading the database at startup
-    data = readDatabase(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data')))
+    logger.info("Starting Cozom Web App...")
+    data = readDatabase(DATA_FOLDER)
     app.run(debug=True, host='0.0.0.0', port=5001)
