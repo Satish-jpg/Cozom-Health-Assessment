@@ -4,45 +4,60 @@ import os
 import json
 import logging
 
-# Adding the project directory to the Python path
+# Add the project directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from cozom.reader import readDatabase
 from cozom.models import Symptom, Condition, BodyPart
 
-# Initialize Flask app
-app = Flask(__name__)
+# Initialize Flask app with dynamic paths for templates and static files
+current_dir = os.path.dirname(os.path.abspath(__file__))
+app = Flask(
+    __name__,
+    template_folder=os.path.join(current_dir, "templates"),
+    static_folder=os.path.join(current_dir, "static"),
+)
 
 # Logging configuration
 logging.basicConfig(level=logging.INFO)
 logger = app.logger
 
-# Templates and static folder paths
-templates_path = os.path.join(os.getcwd(), "templates")
-static_folder = os.path.join(os.getcwd(), "static")
-DATA_FOLDER = r"D:\Cozom"
+# Data folder path (dynamic for local and deployed environments)
+DATA_FOLDER = os.getenv("DATA_FOLDER", os.path.join(current_dir, "data"))
 
 # Required templates and static files
 required_templates = [
-    "about.html", "info.html", "questions.html",
-    "symptom_checker.html", "conditions.html",
-    "details.html", "404.html"
+    "404.html", "about.html", "bodypart.html", "conditions.html", "details.html",
+    "diagnosis.html", "helpers.html", "info.html", "questions.html",
+    "structure.html", "symptom.html", "symptom_checker.html",
+    "BODY MAP HTML/bodymap.html", "Component HTML/aboutpage.html",
+    "Component HTML/bodypart_component.html", "Component HTML/condition_component.html",
+    "Component HTML/diagnosepage.html", "Component HTML/symptom_component.html",
+    "IMAGE HTML/ImageToggleFrontBack.html"
 ]
+
 required_static_files = {
-    "CSS": ["about.css", "404.css", "conditions.css", "details.css"],
-    "js": ["about.js", "404.js", "conditions.js", "details.js"]
+    "CSS": ["404.css", "about.css", "bodypart.css", "conditions.css", "details.css",
+            "diagnosis.css", "helpers.css", "info.css", "questions.css", "symptom.css",
+            "BODY MAP CSS/bodymap.css", "Component CSS/aboutpage.css",
+            "Component CSS/bodypart_component.css", "Component CSS/condition_component.css",
+            "Component CSS/diagnosepage.css", "Component CSS/symptom_component.css",
+            "IMAGE CSS/background-image.css"],
+    "js": ["404.js", "about.js", "bodypart.js", "conditions.js", "details.js",
+           "diagnosis.js", "helpers.js", "symptom.js", "JavaScriptToggle.js",
+           "BODY MAP JS/bodymap.js", "COMPONENT JS/aboutpage.js",
+           "COMPONENT JS/bodypart_component.js", "COMPONENT JS/condition_component.js",
+           "COMPONENT JS/diagnosepage.js", "COMPONENT JS/symptom_component.js"]
 }
 
 # Verify templates
 def verify_templates():
     """Checks if all required templates exist."""
-    if not os.path.exists(templates_path):
-        logger.error(f"Templates folder not found: {templates_path}")
-        return False
-    missing_templates = [
-        template for template in required_templates
-        if not os.path.exists(os.path.join(templates_path, template))
-    ]
+    missing_templates = []
+    for template in required_templates:
+        template_path = os.path.join(app.template_folder, template.replace("/", os.sep))
+        if not os.path.exists(template_path):
+            missing_templates.append(template)
     if missing_templates:
         logger.error(f"Missing templates: {missing_templates}")
         return False
@@ -52,14 +67,11 @@ def verify_templates():
 # Verify static files
 def verify_static_files():
     """Checks if all required static files exist."""
-    if not os.path.exists(static_folder):
-        logger.error(f"Static folder not found: {static_folder}")
-        return False
     missing_files = []
     for folder, files in required_static_files.items():
-        folder_path = os.path.join(static_folder, folder)
         for file in files:
-            if not os.path.exists(os.path.join(folder_path, file)):
+            static_file_path = os.path.join(app.static_folder, folder.replace("/", os.sep), file)
+            if not os.path.exists(static_file_path):
                 missing_files.append(f"{folder}/{file}")
     if missing_files:
         logger.error(f"Missing static files: {missing_files}")
@@ -69,13 +81,6 @@ def verify_static_files():
 
 if not verify_templates() or not verify_static_files():
     sys.exit("Application cannot start due to missing templates or static files.")
-
-# Initialize global variables for data
-body_parts = []
-symptoms = []
-conditions = []
-
-logger.info(f"Using DATA_FOLDER: {DATA_FOLDER}")
 
 # Helper function to load JSON files safely
 def load_json_file(filepath):
@@ -87,32 +92,23 @@ def load_json_file(filepath):
         logger.error(f"Error loading {filepath}: {e}")
         return None
 
-# Load body parts
+# Data loading functions
 def load_body_parts():
     """Load body parts data."""
     parts_file = os.path.join(DATA_FOLDER, 'body_parts.json')
-    parts_data = load_json_file(parts_file)
-    if parts_data:
-        return [{"id": int(k), "name": v} for k, v in parts_data.items()]
-    logger.warning("Body parts data is empty.")
-    return []
+    return load_json_file(parts_file) or []
 
-# Load symptoms
 def load_symptoms():
     """Load symptoms data."""
     symptoms_folder = os.path.join(DATA_FOLDER, 'symptoms')
     if not os.path.exists(symptoms_folder):
         logger.warning(f"Symptoms folder not found: {symptoms_folder}")
         return []
-    symptoms = []
-    for file in os.listdir(symptoms_folder):
-        if file.endswith('.json'):
-            symptom_data = load_json_file(os.path.join(symptoms_folder, file))
-            if symptom_data:
-                symptoms.append(symptom_data)
-    return symptoms
+    return [
+        load_json_file(os.path.join(symptoms_folder, file))
+        for file in os.listdir(symptoms_folder) if file.endswith('.json')
+    ]
 
-# Load conditions
 def load_conditions():
     """Load conditions data."""
     conditions = []
@@ -121,22 +117,17 @@ def load_conditions():
         if not os.path.exists(folder):
             logger.warning(f"Conditions folder not found: {folder}")
             continue
-        for file in os.listdir(folder):
-            if file.endswith('.json'):
-                condition_data = load_json_file(os.path.join(folder, file))
-                if condition_data:
-                    conditions.append(condition_data)
+        conditions += [
+            load_json_file(os.path.join(folder, file))
+            for file in os.listdir(folder) if file.endswith('.json')
+        ]
     return conditions
 
-# Load data before each request
-@app.before_request
-def load_data():
-    """Load data before each request."""
-    global body_parts, symptoms, conditions
-    logger.info("Loading body parts, symptoms, and conditions...")
-    body_parts = load_body_parts()
-    symptoms = load_symptoms()
-    conditions = load_conditions()
+# Load data once at application start
+logger.info("Loading data...")
+body_parts = load_body_parts()
+symptoms = load_symptoms()
+conditions = load_conditions()
 
 # Routes
 @app.route('/')
@@ -194,5 +185,4 @@ def page_not_found(e):
 
 if __name__ == "__main__":
     logger.info("Starting Cozom Web App...")
-    data = readDatabase(DATA_FOLDER)
     app.run(debug=True, host='0.0.0.0', port=5001)
