@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozom Symptom Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!-- Add the logo here -->
+            <img src="assets/images/logo/logo with tagline.jpg" alt="Cozom Logo" id="cozom-logo">
+            <h1>Cozom Symptom Checker <span>WITH BODY MAP</span></h1>
+            <p>Identify possible conditions and treatment related to your symptoms.<br>
+            <small>This tool does not provide medical advice.</small></p>
+        </header>
+        <div class="info-form">
+            <label for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Enter your age">
+            <div class="gender-selection">
+                <label>Sex</label>
+                <button id="male-btn" class="gender-btn">Male</button>
+                <button id="female-btn" class="gender-btn">Female</button>
+            </div>
+            <button id="continue-btn" disabled>Continue</button>
+        </div>
+        <div class="body-map-section" style="display: none;">
+            <!-- Male Body Map Images -->
+            <img id="body-map" src="assets/images/male/front-m.webp" alt="Male Front">
+            <img id="body-map-back" src="assets/images/male/back-m.webp" alt="Male Back" style="display:none;">
+            
+            <!-- Female Body Map Images -->
+            <img id="female-body" src="assets/images/female/front-f.webp" alt="Female Front" style="display:none;">
+            <img id="female-back" src="assets/images/female/back-f.webp" alt="Female Back" style="display:none;">
+            
+            <button id="toggle-view-btn">Toggle View</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

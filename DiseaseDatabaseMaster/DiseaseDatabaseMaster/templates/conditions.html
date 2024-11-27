@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cozom - Condition Details</title>
+    <!-- Link to CSS using Flask's url_for -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/conditions.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="{{ url_for('info') }}" class="nav-link">INFO</a></li>
+            <li class="nav-item"><a href="{{ url_for('symptom_checker') }}" class="nav-link">SYMPTOMS</a></li>
+            <li class="nav-item"><a href="{{ url_for('questions') }}" class="nav-link">QUESTIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('conditions_view') }}" class="nav-link">CONDITIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('details') }}" class="nav-link">DETAILS</a></li>
+            <li class="nav-item"><a href="/treatment" class="nav-link">TREATMENT</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        <h1>Condition Details</h1>
+        <p id="conditionDescription">Please select a condition to view its details.</p>
+    </div>
+
+    <!-- Link to JS using Flask's url_for -->
+    <script src="{{ url_for('static', filename='js/conditions.js') }}"></script>
+</body>
+</html>

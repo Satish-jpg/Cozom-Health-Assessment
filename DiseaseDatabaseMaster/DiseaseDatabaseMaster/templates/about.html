@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn more about Cozom, a health tech platform designed to assist users in identifying symptoms and seeking specialist doctors for treatment.">
+    <title>Cozom - About</title>
+    <!-- Link to the CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/about.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="{{ url_for('home') }}" class="nav-link">HOME</a></li>
+            <li class="nav-item"><a href="{{ url_for('info') }}" class="nav-link">INFO</a></li>
+            <li class="nav-item"><a href="{{ url_for('symptom_checker') }}" class="nav-link">SYMPTOMS</a></li>
+            <li class="nav-item"><a href="{{ url_for('questions') }}" class="nav-link">QUESTIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('condition') }}" class="nav-link">CONDITIONS</a></li>
+            <li class="nav-item"><a href="{{ url_for('detailed_body_part', part_id=1) }}" class="nav-link">DETAILS</a></li>
+            <li class="nav-item"><a href="{{ url_for('treatment') }}" class="nav-link">TREATMENT</a></li>
+        </ul>
+    </nav>
+    
+    <!-- Main Content -->
+    <main class="content" role="main">
+        <h1>About Cozom</h1>
+        <p>
+            Cozom is a health tech platform designed to help users identify symptoms and 
+            find specialist doctors for appropriate treatments.
+        </p>
+        <p>
+            We provide detailed symptom analysis, condition-related resources, and 
+            advanced diagnostic tools to empower users to make informed healthcare decisions.
+        </p>
+        <!-- Button Section -->
+        <div class="button-group">
+            <button id="agreeButton" class="btn" aria-label="Agree to Terms">I Agree</button>
+            <button id="disagreeButton" class="btn" aria-label="Disagree to Terms">I Disagree</button>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <p>&copy; {{ current_year }} Cozom. All Rights Reserved.</p>
+    </footer>
+
+    <!-- JavaScript Support -->
+    <noscript>
+        <p class="noscript-warning">JavaScript is disabled in your browser. Please enable it for a better experience.</p>
+    </noscript>
+    
+    <!-- Include JavaScript -->
+    <script src="{{ url_for('static', filename='js/about.js') }}"></script>
+</body>
+</html>

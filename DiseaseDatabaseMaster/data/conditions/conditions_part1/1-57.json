@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Confusion",
+                "id": 57
+            }
+        ],
+        "bodypart": {
+            "name": "Head",
+            "id": 1
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+=======
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Confusion",
+                "id": 57
+            }
+        ],
+        "bodypart": {
+            "name": "Head",
+            "id": 1
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+>>>>>>> 707c694 (Resolving all conflicts and adding new files)
+}

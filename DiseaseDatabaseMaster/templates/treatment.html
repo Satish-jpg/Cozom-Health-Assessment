@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Treatment</title>
+    <!-- Link CSS file -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/treatment.css') }}">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a href="/" class="logo">Cozom Health</a>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('conditions_view') }}">Conditions</a></li>
+                <li><a href="{{ url_for('treatment') }}" class="active">Treatment</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Welcome to the Treatment Page</h1>
+            <p>Explore a variety of treatment options for different conditions.</p>
+        </section>
+
+        <!-- Treatment List Section -->
+        <section class="treatment-list">
+            <h2>Treatment Options</h2>
+            <ul>
+                <li>Physical Therapy</li>
+                <li>Medications</li>
+                <li>Surgeries</li>
+                <li>Alternative Therapies</li>
+            </ul>
+        </section>
+
+        <!-- New Section: Detailed Explanation -->
+        <section class="details">
+            <h2>Why Treatment Matters?</h2>
+            <p>Treatment plays a crucial role in improving the quality of life and aiding recovery for various health conditions. Our curated options help patients find the best path to recovery.</p>
+        </section>
+
+        <!-- Feedback Section -->
+        <section class="feedback">
+            <h2>Share Your Experience</h2>
+            <p>Have you tried any of these treatments? <a href="/feedback">Click here</a> to share your feedback with us.</p>
+        </section>
+    </main>
+
+    <footer>
+        <!-- Updated Footer -->
+        <p>&copy; 2024 Cozom Health Assessment. All rights reserved.</p>
+    </footer>
+
+    <!-- Link JS file -->
+    <script src="{{ url_for('static', filename='js/treatment.js') }}"></script>
+</body>
+</html>

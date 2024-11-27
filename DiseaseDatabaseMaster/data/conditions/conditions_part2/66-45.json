@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Bruising or discoloration",
+                "id": 45
+            }
+        ],
+        "bodypart": {
+            "name": "General",
+            "id": 66
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+=======
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Bruising or discoloration",
+                "id": 45
+            }
+        ],
+        "bodypart": {
+            "name": "General",
+            "id": 66
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+>>>>>>> 707c694 (Resolving all conflicts and adding new files)
+}

@@ -4,6 +4,7 @@ output
 # Linux Ignore
 *~
 *.swp
+.DS_Store
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -75,7 +76,36 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 
-cd
-flask
-set
+# Ignore the virtual environment folder
+venv/
 
+# Virtual Environment
+env/
+ENV/
+*.env
+*.venv
+
+# Test files
+.tox/
+.nox/
+.coverage
+coverage.*
+.cache
+pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.pyc
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Logs and temporary files
+*.log
+*.temp
+*.bak
+*.swp
+
+# OS generated files
+Thumbs.db
+desktop.ini

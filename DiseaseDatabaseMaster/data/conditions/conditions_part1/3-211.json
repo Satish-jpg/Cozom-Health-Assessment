@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Slow eye movements",
+                "id": 211
+            }
+        ],
+        "bodypart": {
+            "name": "Eye",
+            "id": 3
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+=======
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Slow eye movements",
+                "id": 211
+            }
+        ],
+        "bodypart": {
+            "name": "Eye",
+            "id": 3
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+>>>>>>> 707c694 (Resolving all conflicts and adding new files)
+}

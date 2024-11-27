@@ -1,0 +1,16 @@
+.body-map-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.body-image {
+    max-width: 80%;
+    height: auto;
+    border: 1px solid #ccc;
+}
+
+#selectedPart {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #333;
+}

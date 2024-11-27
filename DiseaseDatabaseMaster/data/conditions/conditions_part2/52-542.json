@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Squatting",
+                "id": 542
+            }
+        ],
+        "bodypart": {
+            "name": "Legs",
+            "id": 52
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+=======
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Squatting",
+                "id": 542
+            }
+        ],
+        "bodypart": {
+            "name": "Legs",
+            "id": 52
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+>>>>>>> 707c694 (Resolving all conflicts and adding new files)
+}

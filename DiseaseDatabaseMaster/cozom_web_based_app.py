@@ -4,26 +4,21 @@ import os
 import json
 import logging
 
-# Add the project directory to the Python path
+# Adding the project directory to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from cozom.reader import readDatabase
 from cozom.models import Symptom, Condition, BodyPart
 
-# Initialize Flask app with dynamic paths for templates and static files
-current_dir = os.path.dirname(os.path.abspath(__file__))
-app = Flask(
-    __name__,
-    template_folder=os.path.join(current_dir, "templates"),
-    static_folder=os.path.join(current_dir, "static"),
-)
+# Initialize Flask app
+app = Flask(__name__, template_folder="templates", static_folder="static")
 
 # Logging configuration
 logging.basicConfig(level=logging.INFO)
 logger = app.logger
 
-# Data folder path (dynamic for local and deployed environments)
-DATA_FOLDER = os.getenv("DATA_FOLDER", os.path.join(current_dir, "data"))
+# Data folder path
+DATA_FOLDER = os.path.join("D:", "Cozom")
 
 # Required templates and static files
 required_templates = [

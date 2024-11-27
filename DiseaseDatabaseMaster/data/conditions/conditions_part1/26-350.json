@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Curved spine",
+                "id": 350
+            }
+        ],
+        "bodypart": {
+            "name": "Back",
+            "id": 26
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+=======
+{
+    "meta": {
+        "symptom": [
+            {
+                "name": "Curved spine",
+                "id": 350
+            }
+        ],
+        "bodypart": {
+            "name": "Back",
+            "id": 26
+        }
+    },
+    "status": "ok",
+    "code": 1,
+    "data": {
+        "conditions": []
+    }
+>>>>>>> 707c694 (Resolving all conflicts and adding new files)
+}
